@@ -107,10 +107,10 @@ void Database_write(struct Connection *conn){
 	rewind(conn -> file);
 	int rc = fwrite(&conn->db->max_rows, sizeof(conn->db->max_rows), 1, conn->file);
 	if(rc != 1)
-		die("Failed to write max_data",conn);
+		die("Failed to write max_rows",conn);
 	rc = fwrite(&conn->db->max_data, sizeof(conn->db->max_data), 1, conn->file);
 	if(rc != 1)
-		die("Failed to write max_rows",conn);
+		die("Failed to write max_data",conn);
 /*	rc = fwrite(conn->db, sizeof(struct Database), 1, conn->file);
 	if(rc != 1){
 		die("Failed to write the database", conn);
