@@ -23,7 +23,7 @@ struct Connection {
 
 
 void Database_close(struct Connection *conn){
-	if(conn){
+	if(conn){	
 		size_t i = 0;
 		if(conn->file)
 			fclose(conn->file);
