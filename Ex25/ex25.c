@@ -7,9 +7,7 @@
 
 int read_string(char **out_string, int max_buffer)
 {
-    *out_string = calloc(1, max_buffer+1);
-    check_mem(*out_string);
-
+    *out_string = calloc(1, max_buffer+1); check_mem(*out_string);
     char *result = fgets(*out_string, max_buffer, stdin);
     check(result != NULL, "Input error.");
 
@@ -20,6 +18,7 @@ error:
     *out_string = NULL;
     return  -1;
 }
+
 int read_int(int *out_int)
 {
     char *input = NULL;
@@ -43,10 +42,9 @@ int read_scan(const char *fmt, ...)
     char *out_char = NULL;
     char **out_string = NULL;
     int max_buffer = 0;
-
     va_list argp;
     va_start(argp, fmt);
-
+    
     for(i = 0; fmt[i] != '\0'; i++){
         if(fmt[i] == '%'){
             i++;
@@ -92,8 +90,8 @@ int main(int argc, char *argv[])
     char initial = ' ';
     char *last_name = NULL;
     int age = 0;
-
-    printf("What's your first name? ");
+    
+    //printf("What's your first name? ");
     int rc = read_scan("%s", MAX_DATA, &first_name);
     check(rc == 0, "Failed first name");
 
