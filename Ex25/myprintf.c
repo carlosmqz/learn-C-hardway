@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 {
     //char *message = NULL;
 
-    print_format("Hola estoy re-pendejo para C, mi edad es: %d años y no %s", 41, "valgo verga");
+    print_format("Hello World, this is %s and I'm learning C programming, this is day %d","Carlos", 975);
     return 0;
 
 }
