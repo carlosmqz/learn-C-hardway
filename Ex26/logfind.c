@@ -3,6 +3,7 @@
 #include <string.h>
 
 #define MAX_TOKENS 10
+#define LOG_FOLDER "~/.logfind"
 
 int find_tokens(int arg_o,int arg_num, char *tokens_to_find[])
 {
