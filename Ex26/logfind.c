@@ -85,6 +85,10 @@ int main(int argc, char *argv[])
         }
         result = find_tokens(arg_o, k, tokens_to_find);
 
+        /*for(i = 0; i < k; i ++){
+            free(tokens_to_find[i]);
+        }*/
+
     }
     
     return 0;
