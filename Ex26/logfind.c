@@ -5,19 +5,60 @@
 #define MAX_TOKENS 10
 #define LOG_FOLDER "~/.logfind"
 
+int arg_o = 0;
+
+
 int find_tokens(int arg_o,int arg_num, char *tokens_to_find[])
 {
     int i = 0;
-    
-    for(i = 0; i < arg_num; i++){
-        printf("%s\n", tokens_to_find[i]);
+    char *buffer = NULL;  
+    int tokens_found = 0;
+
+    FILE *file = fopen("input.txt","r");
+    if (file == NULL){
+        printf("Error reading the file");
+        return 1;
     }
+
+    if(fseek(file, 0L, SEEK_END) == 0){
+        long bufsize = ftell(file);
+        if(bufsize == -1){
+            printf("Error reading the file, buffer size");
+            return 1;
+        }
+
+        buffer = malloc(sizeof(char *) * (bufsize+1));
+        if(fseek(file, 0L, SEEK_SET) != 0){
+            printf("Error getting the start of the file");
+            return 1;
+        }
+
+        size_t newLen = fread(buffer, sizeof(char), bufsize, file);
+        if(ferror(file) != 0){
+            fputs("Error reading the file %s", stderr);
+        }else{
+            buffer[newLen++] = '\0';
+            printf("Buffer: %s\n", buffer);
+            int i = 0;
+            for(i = 0; i < arg_num; i++){
+                if(strstr(buffer, tokens_to_find[i]) != NULL){
+                    tokens_found++;
+                }else{
+                    printf("Token %s was not found in the file!", tokens_to_find[i]);
+                    break;
+                }
+            }
+        }
+        fclose(file);
+    } 
     
+    if(tokens_found == arg_num)
+        printf("All tokens were found in the file!");
+    free(buffer);
     return 0;
 }
 int main(int argc, char *argv[])
 {
-    int arg_o = 0;
     int result = 0;
     int k = 0;
     int i = 0;
