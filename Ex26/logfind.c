@@ -42,18 +42,18 @@ int find_tokens(int arg_o,int arg_num, char *tokens_to_find[])
             int i = 0;
             for(i = 0; i < arg_num; i++){
                 if(strstr(buffer, tokens_to_find[i]) != NULL){
+                    printf("Token %s was found in the file! \n", tokens_to_find[i]);
                     tokens_found++;
                 }else{
-                    printf("Token %s was not found in the file!", tokens_to_find[i]);
-                    break;
+                    printf("Token %s was not found in the file!\n", tokens_to_find[i]);
                 }
             }
         }
         fclose(file);
     } 
     
-    if(tokens_found == arg_num)
-        printf("All tokens were found in the file!");
+    if(tokens_found != 0)
+        printf("%d tokens were found in the file!\n", tokens_found);
     free(buffer);
     return 0;
 }
