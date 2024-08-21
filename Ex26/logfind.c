@@ -5,7 +5,6 @@
 #define MAX_TOKENS 10
 #define LOG_FOLDER "~/.logfind"
 
-int arg_o = 0;
 
 
 int find_tokens(int arg_o,int arg_num, char *tokens_to_find[])
@@ -63,6 +62,7 @@ int main(int argc, char *argv[])
     int k = 0;
     int i = 0;
     char *tokens_to_find[MAX_TOKENS];
+    int arg_o = 0;
     printf("Arguments number: %d\n", argc);
     if (argc == 1){
         printf("Please introduce the text to search\n");
@@ -70,26 +70,29 @@ int main(int argc, char *argv[])
     }
     if(argc > 1)
     {
-        if(strcmp(argv[1],"-o") == 0){
-            arg_o = 1;
-            printf("Flag -o active\n");
-        }
-        for(i = 1; i < argc && k < MAX_TOKENS-1; i++)
-        {
-            if(strcmp(argv[i], "-o") != 0)
-            {
-                tokens_to_find[k] = malloc(sizeof(char *) * 100);
-                tokens_to_find[k] = argv[i];
-                k++;
+        for(int i=1; i < argc; i++){
+            char c = argv[i][0];
+            printf("%c\n", c);
+            switch (c) {
+                case '-':
+                    char argument = argv[i][1];
+                    switch(argument)
+                    {
+                        case 'o': 
+                            printf("OR option enabled\n");
+                            arg_o = 1;
+                            break;
+                        default:
+                            printf("Invalid argument option.");
+                    }
+                break;
+                default:
+                    tokens_to_find[k] = malloc(sizeof(char *) * 100);
+                    tokens_to_find[k] = argv[i];
+                    k++;
             }
         }
         result = find_tokens(arg_o, k, tokens_to_find);
-
-        /*for(i = 0; i < k; i ++){
-            free(tokens_to_find[i]);
-        }*/
-
     }
-    
     return 0;
 }
