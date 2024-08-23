@@ -3,7 +3,6 @@
 #include <string.h>
 #include <glob.h>
 #define MAX_TOKENS 10
-#define LOG_FOLDER "~/.logfind"
 
 
 
